@@ -37,6 +37,7 @@ int main() {
                       (mousepos.y - img.height/ 2)  + (int)yOffset, 
                       WHITE);
         EndDrawing();
+        //test
     }
     UnloadTexture(img); // 释放资源
     CloseWindow();
