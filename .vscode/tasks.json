@@ -16,7 +16,8 @@
                 "-I",
                 "..\\inc",
                 "-lraylib",
-                "-lgdi32", "-luser32", "-lkernel32", "-lopengl32", "-lwinmm", "-lole32", "-loleaut32", "-luuid", "-static",
+                "-lgdi32", "-luser32", "-lkernel32", "-lopengl32", "-lwinmm", "-lole32", "-loleaut32", "-luuid",
+                "-static",
                 "-o",
                 "${fileDirname}\\programe.exe"
             ],

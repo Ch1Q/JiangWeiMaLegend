@@ -1,45 +1,42 @@
 #include "raylib.h"
-#include <iostream>
-#include <cmath>
 
 int main() {
-    const int screenWidth = 2000;
+    const int screenWidth = 1600;
     const int screenHeight = 1000;
     InitWindow(screenWidth, screenHeight, "姜威玛传奇");
+    InitAudioDevice();
 
-    // 加载图片（根据实际情况修改路径）
-    Texture2D img = LoadTexture("../assets/img/bulaoshi.png");
-    if (img.width == 0) { // 检查是否加载失败
-        std::cout<<"错误：无法加载图片！请确认路径是否正确"<<std::endl;
-        return 1;
+    // 加载音频（旧版本兼容性检查）
+    Sound click = LoadSound("../assets/aud/chibaola.mp3");
+    if (click.frameCount == 0) { // 检查音效是否加载成功
+        CloseAudioDevice();
+        CloseWindow();
+        return -1;
     }
 
-    float yOffset = 0.0f;       // 垂直偏移量
-    float speed = 50.0f;         // 浮动速度
-    float amplitude = 5.0f;   // 浮动幅度
-    
-    SetTargetFPS(240);
+    Music bgm = LoadMusicStream("../assets/aud/Mojito.mp3");
+    if (bgm.ctxData == nullptr) {  // 检查音乐是否加载成功
+        UnloadSound(click);
+        CloseAudioDevice();
+        CloseWindow();
+        return -1;
+    }
+
+     // 启用循环
+    PlayMusicStream(bgm);       // 播放音乐
 
     while (!WindowShouldClose()) {
-        // 更新逻辑：正弦曲线实现上下浮动
-        yOffset = amplitude * sin(GetTime() * speed);
-        yOffset = amplitude * sin(GetTime() * speed+3.1415926/2);
-        Vector2 mousepos = GetMousePosition();
-        BeginDrawing();
-            ClearBackground(RAYWHITE);
-            // 绘制图片（居中显示，加上偏移量）
-            // DrawTexture(img, 
-            //           (screenWidth - img.width) / 2, 
-            //           (screenHeight - img.height) / 2 + (int)yOffset, 
-            //           WHITE);
-            DrawTexture(img, 
-                      (mousepos.x - img.width/ 2) + (int)yOffset, 
-                      (mousepos.y - img.height/ 2)  + (int)yOffset, 
-                      WHITE);
-        EndDrawing();
-        //test
+        UpdateMusicStream(bgm); // 更新音乐流
+
+        if (IsKeyPressed(KEY_SPACE)) {
+            PlaySound(click);   // 按下空格播放音效
+        }
     }
-    UnloadTexture(img); // 释放资源
+
+    // 释放资源
+    UnloadSound(click);
+    UnloadMusicStream(bgm);
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }
