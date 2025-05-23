@@ -1,14 +1,18 @@
 #pragma once
-#include "IScene.h"
 #include "Node2D.h"
 #include <vector>
-
-class Scene2D : public IScene2D
+#include <forward_list>
+class Scene2D
 {
 private:
-    /* data */
+    std::forward_list<Node2D*> Nodes;
 public:
-    std::vector<Node2D*> Nodes;
-    Scene2D(/* args */);
+    std::string name;
+    
+    Scene2D(std::string _name);
     ~Scene2D();
+    void AddNode(Node2D* node);
+    void DelNode(Node2D* node);
+    void GiveNode(Node2D* _node, Scene2D* _scene);
+    std::forward_list<Node2D*> GetNodes();
 };
