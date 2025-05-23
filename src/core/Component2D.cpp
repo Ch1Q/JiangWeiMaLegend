@@ -7,5 +7,5 @@ Component2D::Component2D()
 
 Component2D::~Component2D()
 {
-
+    
 }

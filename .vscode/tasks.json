@@ -7,23 +7,24 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                //"${file}",
                 "../src/*.cpp",
                 "-g",
                 "../src/core/*.cpp",
-                //"-g",
-                //"${fileDirname}\\inc\\*.h",
+                "-g",
+                "../src/core/component/*.cpp",
                 "-L",
                 "..\\lib",
                 "-I",
                 "..\\inc",
                 "-I",
                 "..\\inc\\core",
+                "-I",
+                "..\\inc\\core\\component",
                 "-lraylib",
                 "-lgdi32", "-luser32", "-lkernel32", "-lopengl32", "-lwinmm", "-lole32", "-loleaut32", "-luuid",
                 "-static",
                 "-o",
-                "${fileDirname}\\programe.exe"
+                "${workspaceFolder}/bin/JiangWeiMaLegend.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
