@@ -5,17 +5,30 @@
 #include <string>
 #include <forward_list>
 
+struct transform2D
+{
+    Vector2 position;
+    float rotation;
+    Vector2 scale;
+    transform2D(Vector2 pos, float rtn, Vector2 scl);
+    transform2D();
+};
+
 class Scene2D;
+
 class Node2D
 {
     Node2D* parentNode = nullptr;
     std::forward_list<Node2D*> SubNodes;
     std::forward_list<Component2D*> Components;
     bool Activate = 1; 
+    
     public:
+    transform2D transform;
     std::string name;
     Node2D(std::string _name);
     Node2D(std::string _name, bool _Activate);
+    Node2D(std::string _name,transform2D _trans);
     ~Node2D();
     bool isActivate();
     void setActivate(bool _activate);

@@ -5,7 +5,7 @@ class AnimationComponent2D : public Component2D
 private:
     /* data */
 public:
-    AnimationComponent2D(std::string _name) ;
+    AnimationComponent2D(std::string _name, Node2D* _parent) ;
     ~AnimationComponent2D();
 };
 

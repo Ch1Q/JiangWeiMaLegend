@@ -1,6 +1,21 @@
 #include "Node2D.h"
 #include <iostream>
 #include "Scene2D.h"
+
+transform2D::transform2D(Vector2 pos , float rtn, Vector2 scl )
+{
+    position = pos;
+    rotation = rtn;
+    scale = scl;
+}
+
+transform2D::transform2D()
+{
+    position.x = 0; position.y = 0;
+    rotation = 0;
+    scale.x = 0; scale.y = 0;
+}
+
 Node2D::Node2D(std::string _name)
 {
     name = _name;
@@ -10,6 +25,12 @@ Node2D::Node2D(std::string _name,bool _Activate)
 {
     name = _name;
     Activate = _Activate;
+}
+
+Node2D::Node2D(std::string _name,transform2D _trans)
+{
+    name = _name;
+    transform = _trans;
 }
 
 Node2D::~Node2D()
@@ -78,7 +99,7 @@ void Node2D::GiveComponent(Component2D* _comp, Node2D* _node)
         std::cout<<"Error:"<<name<<" dosen't has the component "<<_comp->name<<"."<<std::endl;
         return;
     }
-    
+    _comp->setParent(_node);
     _node->AddComponent(_comp);
     Components.remove(_comp);
 }
@@ -89,6 +110,7 @@ void Node2D::GiveComponent(std::string _comp, Node2D* _node)
     for(auto c : Components)if(c->name == _comp)
     {
         compIsIn = 1;
+        c->setParent(_node);
         _node->AddComponent(c);
         Components.remove(c);
     }
