@@ -10,12 +10,6 @@ using json = nlohmann::json;
 
 
 int main() {
-    Node2D* nodeptr;
-    nodeptr = new Node2D("student");
-    Scene2D library("library");
-    library.AddNode(nodeptr);
-    for(auto n : library.GetNodes())std::cout<<n->name<<std::endl;
-    library.DelNode(nodeptr);
     
     // int screenWidth =500;
     // int screenHeight = 250;

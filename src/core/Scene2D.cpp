@@ -5,6 +5,12 @@ Scene2D::Scene2D(std::string _name)
     name = _name;
 }
 
+Scene2D::Scene2D(std::string _name, bool _Activate)
+{
+    name = _name;
+    isActivate = _Activate;
+}
+
 Scene2D::~Scene2D()
 {
     for(auto n : Nodes) delete n;
@@ -13,11 +19,11 @@ Scene2D::~Scene2D()
 void Scene2D::AddNode(Node2D* node)
 {
     if(node == nullptr){std::cout<<"nullptr! node not found";return ;}
-    for(auto a : Nodes)
+    for(auto n : Nodes)
     {
-        if(a==node)
+        if(n == node)
         {
-            std::cout<<"Duplicate Node! "<<name<<" already has the node";
+            std::cout<<"Duplicate Node! "<<name<<" already has the node"<<node->name<<"."<<std::endl;
             return;
         }
     }
@@ -55,4 +61,14 @@ void Scene2D::GiveNode(Node2D* _node, Scene2D* _scene)
 std::forward_list<Node2D*> Scene2D::GetNodes()
 {
     return Nodes;
+}
+
+void Scene2D::Start()
+{
+    for( auto& n : Nodes )if(n->isActivate())n->Start();
+}
+
+void Scene2D::Update(float _delta)
+{
+    for( auto& n : Nodes )if(n->isActivate())n->Update(_delta);
 }
