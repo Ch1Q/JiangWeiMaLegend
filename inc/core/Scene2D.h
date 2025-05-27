@@ -12,9 +12,12 @@ public:
     Scene2D(std::string _name);
     Scene2D(std::string _name, bool _Activate);
     ~Scene2D();
-    void AddNode(Node2D* node);
-    void DelNode(Node2D* node);
+    void AddNode(Node2D* _node);
+    void DelNode(Node2D* _node);
+    void DelNode(std::string _nodeName);
     void GiveNode(Node2D* _node, Scene2D* _scene);
+    void GiveNode(std::string _nodeName, Scene2D* _scene);
+    Node2D* GetNode(std::string _nodeName);
     std::forward_list<Node2D*> GetNodes();
     void Start();
     void Update(float _delta);

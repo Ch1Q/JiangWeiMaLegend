@@ -1,6 +1,8 @@
 #pragma once
 #include "raylib.h"
 #include <string>
+#include <memory>
+
 
 class Node2D;
 
