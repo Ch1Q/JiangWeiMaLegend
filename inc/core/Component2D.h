@@ -6,21 +6,23 @@
 
 class Node2D;
 
-class Component2D
+class Component2D : public std::enable_shared_from_this<Component2D>
 {
     private:
     bool Activate = 1;
-    Node2D* parent;
+    std::weak_ptr<Node2D> owner;
+    Component2D();
+    Component2D(bool _Activate):Activate(_Activate){}
     public:
 
-    std::string name;
+    static std::unique_ptr<Component2D> create();
+    static std::unique_ptr<Component2D> create(bool _acti);
     bool isActivate();
-    void setActivate(bool _activate);
-    Component2D(std::string _name, Node2D* _parent);
-    Component2D(std::string _name, Node2D* _parent, bool _Activate);
-    void setParent(Node2D* _parent);
-    Node2D* getParent(void);
+    void setActivate(bool _acti);
+    std::weak_ptr<Node2D> getOwner();
+    void setOwner(std::weak_ptr<Node2D> _parent);
     virtual ~Component2D() = default;
+
     virtual void Start();
     virtual void Update(float _delta);
 

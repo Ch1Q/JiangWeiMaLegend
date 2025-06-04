@@ -12,19 +12,17 @@ using json = nlohmann::json;
 
 int main() {
     
-    int screenWidth =500;
-    int screenHeight = 250;
-    InitWindow(screenWidth, screenHeight, "姜威玛传奇");
-    Scene2D library("library");
-    Node2D* node = new Node2D("XiaoBa");
-    TextureComp2D* txr = new TextureComp2D("texture",node,1);
-    txr->Load("../assets/img/bulaoshi.png");
-    node->AddComponent(txr);
-    library.AddNode(node);
-    while (!WindowShouldClose()) {
+    
+    InitWindow(800, 600, "一枚姜传奇");
+    SetTargetFPS(60);
+
+    
+    while (!WindowShouldClose()) 
+    {
     BeginDrawing();
-    float delta = GetFrameTime();
-    library.Update(delta);
+
+    
+    ClearBackground(RAYWHITE);
     
 
 

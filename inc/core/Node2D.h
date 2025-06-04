@@ -3,7 +3,7 @@
 #include <vector>
 #include "Component2D.h"
 #include <string>
-#include <forward_list>
+#include <unordered_set>
 #include <unordered_map>
 #include <memory>
 
@@ -16,34 +16,38 @@ struct transform2D
     transform2D();
 };
 
-class Scene2D;
 
 class Node2D : public std::enable_shared_from_this<Node2D>
 {
-    std::string name;
-    std::unordered_map<std::string, std::shared_ptr<Node2D>> SubNodes;
+    transform2D transform;
+    std::unordered_set<std::shared_ptr<Node2D>> SubNodes;
     std::unordered_map<std::string, std::unique_ptr<Component2D>> Components;
     bool Activate = 1; 
     std::weak_ptr<Node2D> parent;
-    Node2D(std::string _name);
-    transform2D transform;
-
-    public:
+    Node2D(std::string _name):name(_name){};
     
-    ~Node2D();
+
+    friend void setParentShip(std::shared_ptr<Node2D> prtNode, std::shared_ptr<Node2D> subNode);
+    public:
+    std::string name;
+    static std::shared_ptr<Node2D> create(std::string _name);
+    
     bool isActivate();
-    void setActivate(bool _activate);
-    void addComponent(std::unique_ptr<Component2D> _comp);
+    void setActivate(bool _acti);
+    void addComponent(std::unique_ptr<Component2D> _comp,std::string _compName);
     void removeComponent(std::string _compName);
-    void giveComponent(std::string _compName, Node2D* _node);
-    Component2D* GetComponent(std::string _compName);
-    void AddSubNode(Node2D* _node);
-    void DelSubNode(Node2D* _node);
-    void DelSubNode(std::string _node);
-    void GiveSubNode(Node2D* _subnode, Node2D* _toNode);
-    void GiveSubNode(std::string _node, Scene2D* _scene);
-    std::forward_list<Component2D*> GetComponents();
-    std::forward_list<Node2D*> GetSubNodes();
+    void giveComponent(std::string _compName, std::shared_ptr<Node2D> _node);
+    void setParent(std::shared_ptr<Node2D> ptrNode);
+    void delSubNode(std::shared_ptr<Node2D>& _node);
+    
+    void freeSubNode(std::shared_ptr<Node2D> _subnode);
+    std::unordered_set<std::shared_ptr<Node2D>> GetSubNodes();
+
+    void setPosition(Vector2 _pos);
+    Vector2 getPosition();
+    void setTransform(transform2D _trans);
+    transform2D getTransform();
+
     virtual void Start();
     virtual void Update(float _delta);
     void SubNodesStart();
@@ -51,3 +55,5 @@ class Node2D : public std::enable_shared_from_this<Node2D>
     void ComponentsStart();
     void ComponentsUpdate(float _delta);
 };
+
+void setParentShip(std::shared_ptr<Node2D> prtNode, std::shared_ptr<Node2D> subNode);
