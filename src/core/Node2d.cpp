@@ -208,3 +208,14 @@ void Node2D::ComponentsUpdate(float _delta)
         if(c.second->isActivate())c.second->Update(_delta);
     }
 }
+
+void Node2D::Start()
+{
+    ComponentsStart();
+    SubNodesStart();
+}
+void Node2D::Update(float _delta)
+{
+    ComponentsUpdate(_delta);
+    SubNodesUpdate(_delta);
+}

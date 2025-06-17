@@ -25,12 +25,16 @@ void Component2D::setActivate(bool _acti)
     Activate = _acti;
 }
 
-std::weak_ptr<Node2D> Component2D::getOwner()
+std::weak_ptr<Node2D> Component2D::getOwner() const
 {
     return owner;
 }
 
-void Component2D::setOwner(std::weak_ptr<Node2D> _parent)
+void Component2D::Start()
 {
-    owner = _parent;
+    
+}
+void Component2D::Update(float _delta)
+{
+    
 }
